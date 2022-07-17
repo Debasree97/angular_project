@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { listmodel } from './list.module';
 import { CurrencyService } from './currency.service';
 import { DatePipe } from '@angular/common';
-import { Parameters } from './parameters';
+import { loginParams, Parameters } from './parameters';
 import { JwtAuthenticationService } from 'src/app/services/security/jwt-authentication.service';
 import { Router } from '@angular/router';
 
@@ -21,13 +21,16 @@ export class AppComponent {
     private currency: CurrencyService,
     public datepipe: DatePipe,
     private jwtAuthenticationService: JwtAuthenticationService,
-    private router: Router
+    private router: Router,
+    private auth: JwtAuthenticationService
   ) {}
 
   //paramobj : listmodel = new listmodel();
   paramobj: Parameters = new Parameters();
+  loginobj: loginParams = new loginParams();
   curData: any;
   formValue!: FormGroup;
+  loginForm!: FormGroup;
 
   /* activeStatus: string = 'Inactive';
   coName: string = "";
@@ -37,7 +40,7 @@ export class AppComponent {
 
   // function to login page
   gotoPage(): void {
-    this.router.navigateByUrl('login');
+    this.router.navigateByUrl('/login');
   }
 
   ngOnInit() {
@@ -49,7 +52,25 @@ export class AppComponent {
       createBy: [''],
       updateBy: [''],
     });
+
+    this.loginForm = this.FB.group({
+      email: [''],
+      password: [''],
+    });
     //this.getAllData();
+  }
+
+  login() {
+    this.loginobj.email = this.loginForm.value.email;
+    this.loginobj.password = this.loginForm.value.password;
+    this.jwtAuthenticationService
+      .executeJWTAuthenticationService(
+        this.loginobj.email,
+        this.loginobj.password
+      )
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 
   onSubmit() {

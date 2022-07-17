@@ -59,6 +59,30 @@
   </div>
 </div>
 
+
+<!-- login form -->
+<form
+  class="d-md-flex mx-3 my-5"
+  [formGroup]='loginForm'
+  (ngSubmit)="login()"
+>
+  <input
+    type="email"
+    class="form-control mx-1 mt-3"
+    placeholder="Email"
+    formControlName="email"
+  />
+  <input
+    type="password"
+    class="form-control mx-1 mt-3"
+    placeholder="Password"
+    formControlName="password"
+  />
+  <button type="submit" class="btn btn-primary mx-1 mx-lg-3 mt-4 mt-md-3">
+    Login
+  </button>
+</form>
+
 <!-- Input Box -->
 <form
   class="d-md-flex mx-3 my-5"

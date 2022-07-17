@@ -9,4 +9,10 @@ export class Parameters{
     create_date :  any= "";
     update_date : any = "";
   
-  }
+}
+
+
+export class loginParams{
+  email: string = '';
+  password: string = '';
+}
